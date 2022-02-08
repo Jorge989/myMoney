@@ -62,7 +62,10 @@ export const useFirestore = (colletion) => {
     try {
       const createdAt = timestamp.fromDate(new Date());
       const adddedDocument = await ref.add({ ...doc, createdAt });
-      dispatchIfNotCancelled({ type: "ADDED_DOCUMENT", payload: addDocument });
+      dispatchIfNotCancelled({
+        type: "ADDED_DOCUMENT",
+        payload: adddedDocument,
+      });
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
@@ -74,6 +77,7 @@ export const useFirestore = (colletion) => {
       const deleteDocument = await ref.doc(id).delete();
       dispatchIfNotCancelled({
         type: "DELETED_DOCUMENT",
+        payload: deleteDocument,
       });
     } catch (err) {
       dispatchIfNotCancelled({ type: "ERROR", payload: deleteDocument });
